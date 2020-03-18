@@ -29,6 +29,11 @@
             <name>Florent Haxha</name>
             <email>flo@praqma.net</email>
         </developer>
+        <developer>
+            <id>atombrella</id>
+            <name>Mads Jensen</name>
+            <email>mads.jensen@eficode.com</email>
+        </developer>
     </developers>
 
     <scm>
