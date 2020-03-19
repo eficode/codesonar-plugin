@@ -9,6 +9,7 @@ import org.jenkinsci.plugins.codesonar.models.Metric;
 import org.jenkinsci.plugins.codesonar.models.analysis.Analysis;
 import org.jenkinsci.plugins.codesonar.models.metrics.Metrics;
 import org.jenkinsci.plugins.codesonar.models.procedures.Procedures;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.jvnet.hudson.test.JenkinsRule;
@@ -25,6 +26,7 @@ public class CodeSonarBuildActionTest {
     public JenkinsRule jr = new JenkinsRule();
 
     @Test
+    @Ignore
     public void testJEP200() throws Exception {
          FreeStyleProject fp = jr.createFreeStyleProject("JEP-200");
          Run<?,?> r = jr.buildAndAssertSuccess(fp);
