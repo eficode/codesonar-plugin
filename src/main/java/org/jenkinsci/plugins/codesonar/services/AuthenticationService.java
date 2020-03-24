@@ -8,9 +8,12 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
+import java.security.cert.Certificate;
 import java.util.List;
+import javax.annotation.Nonnull;
 import javax.net.ssl.SSLContext;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.fluent.Executor;
@@ -26,12 +29,21 @@ public class AuthenticationService {
         this.httpService = httpService;
     }
 
-    public void authenticate(URI baseHubUri, KeyStore keyStore, String password) throws AbortException {
+    // basic authentication
+    public void authenticate(URI baseHubUri){
+
+    }
+
+
+
+    public void authenticate(URI baseHubUri, KeyStore keyStore, @Nonnull String password) throws AbortException {
         SSLContext sslContext;
         try {
             sslContext = SSLContexts.custom().loadKeyMaterial(keyStore, password.toCharArray()).build();
         } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException | UnrecoverableKeyException ex) {
-            throw new AbortException(String.format("[CodeSonar] failed to authenticate.%n[CodeSonar] Message is: %s", ex.getMessage()));
+            throw new AbortException(String.format(
+                "[CodeSonar] failed to authenticate.%n[CodeSonar] Message is: %s", ex.getMessage())
+            );
         }
 
         HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
@@ -57,7 +69,7 @@ public class AuthenticationService {
             throw new AbortException(String.format("[CodeSonar] %s", e.getMessage()));
         }
         
-        if (status != 200) {
+        if (status != HttpStatus.SC_OK) {
             throw new AbortException(String.format("[CodeSonar] failed to authenticate. %n[CodeSonar] HTTP status code: %s", status));
         }
     }
@@ -82,7 +94,7 @@ public class AuthenticationService {
             throw new AbortException(String.format("[CodeSonar] %s", e.getMessage()));
         }
         
-        if (status != 200) {
+        if (status != HttpStatus.SC_OK) {
             throw new AbortException(String.format("[CodeSonar] failed to authenticate. %n[CodeSonar] HTTP status code: %s", status));
         }
     }
@@ -93,7 +105,7 @@ public class AuthenticationService {
 
             int statusCode = resp.getStatusLine().getStatusCode();
             
-            if (statusCode != 200) {
+            if (statusCode != HttpStatus.SC_OK) {
                 throw new AbortException("[CodeSonar] failed to sign out.");
             }
         } catch (IOException ex) {

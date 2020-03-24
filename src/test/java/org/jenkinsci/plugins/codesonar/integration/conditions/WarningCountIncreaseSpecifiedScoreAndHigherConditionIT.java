@@ -20,7 +20,7 @@ import org.junit.Test;
 public class WarningCountIncreaseSpecifiedScoreAndHigherConditionIT extends ConditionIntegrationTestBase {
 
     @Test
-    public void percentageOfWariningsBellowTheDesignatedScoreIsAboveTheThreshold_BuildIsSetToWarrantedResult() throws Exception {
+    public void percentageOfWarningsBellowTheDesignatedScoreIsAboveTheThreshold_BuildIsSetToWarrantedResult() throws Exception {
         // arrange
         final Result EXPECTED_RESULT = Result.FAILURE;
         final String WARRANTED_RESULT = Result.FAILURE.toString();
@@ -53,7 +53,7 @@ public class WarningCountIncreaseSpecifiedScoreAndHigherConditionIT extends Cond
     }
 
     @Test
-    public void percentageOfWariningsBellowTheDesignatedRankIsBellowTheThreshold_BuildIsSuccessful() throws Exception {
+    public void percentageOfWarningsBellowTheDesignatedRankIsBellowTheThreshold_BuildIsSuccessful() throws Exception {
         // arrange
         final Result EXPECTED_RESULT = Result.SUCCESS;
         final String WARRANTED_RESULT = Result.FAILURE.toString();
