@@ -23,6 +23,7 @@ public class Warning implements Serializable {
     
     private int rank;
     private int score;
+    private String significance;
     @XmlTransient
     private String url;
     private String file;
@@ -70,7 +71,15 @@ public class Warning implements Serializable {
     public void setRank(int rank) {
         this.rank = rank;
     }
-    
+
+    public String getSignificance() {
+        return significance;
+    }
+
+    public void setSignificance(String significance) {
+        this.significance = significance;
+    }
+
     public int getScore() {
         return score;
     }

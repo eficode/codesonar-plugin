@@ -12,6 +12,7 @@ import org.jenkinsci.plugins.codesonar.conditions.RedAlertLimitCondition;
 import org.jenkinsci.plugins.codesonar.conditions.WarningCountIncreaseOverallCondition;
 import org.jenkinsci.plugins.codesonar.conditions.YellowAlertLimitCondition;
 import org.jenkinsci.plugins.codesonar.conditions.WarningCountAbsoluteSpecifiedScoreAndHigherCondition;
+import org.jenkinsci.plugins.codesonar.conditions.WarningCountBySignificance;
 
 class CodeSonarJobDslContext implements Context {
 
@@ -69,6 +70,16 @@ class CodeSonarJobDslContext implements Context {
 
     public void rankedWarningCountIncrease(int rank, float percentage, boolean fail) {
         WarningCountIncreaseSpecifiedScoreAndHigherCondition condition = new WarningCountIncreaseSpecifiedScoreAndHigherCondition(rank, Float.toString(percentage));
+        if (fail) {
+            condition.setWarrantedResult(Result.FAILURE.toString());
+        } else {
+            condition.setWarrantedResult(Result.UNSTABLE.toString());
+        }
+        conditions.add(condition);
+    }
+
+    public void significanceWarningCount(String significance, int count, boolean fail){
+        WarningCountBySignificance condition = new WarningCountBySignificance(significance, count);
         if (fail) {
             condition.setWarrantedResult(Result.FAILURE.toString());
         } else {

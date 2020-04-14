@@ -11,6 +11,8 @@ import hudson.model.Result;
 import hudson.model.TaskListener;
 import jenkins.model.Jenkins;
 
+import java.util.logging.Logger;
+
 /**
  *
  * @author andrius

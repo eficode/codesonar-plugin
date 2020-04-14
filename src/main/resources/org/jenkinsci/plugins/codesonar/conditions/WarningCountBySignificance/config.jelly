@@ -1,0 +1,18 @@
+<?jelly escape-by-default='true'?>
+    <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+    <f:entry name="significance" title="Choose Significance Type" field="significance">
+        <select name="significance">
+            <option value="security">Security</option>
+            <option value="reliability">Reliability</option>
+            <option value="redundancy">Redundancy</option>
+            <option value="style">Redundancy</option>
+            <option value="diagnostic">Diagnostic</option>
+        </select>
+    </f:entry>
+    <f:select />
+    <f:entry field="warningCountThreshold" title="Maximum warnings of this significance">
+        <f:textbox default="5" />
+    </f:entry>
+        <f:entry field="warrantedResult" title="If more warnings of significance, set result to">
+    </f:entry>
+</j:jelly>
