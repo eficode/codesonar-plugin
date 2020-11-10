@@ -47,7 +47,7 @@ public class WarningCountIncreaseOverallCondition extends Condition {
             return Result.SUCCESS;
         }
 
-        CodeSonarBuildActionDTO prevBuildActionDTO = buildAction.getBuildActionDTO();
+        CodeSonarBuildActionDTO prevBuildActionDTO = previousBuildAction.getBuildActionDTO();
         if (prevBuildActionDTO == null) {
             return Result.SUCCESS;
         }
