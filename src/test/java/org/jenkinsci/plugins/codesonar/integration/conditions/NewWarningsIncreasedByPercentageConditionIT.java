@@ -32,7 +32,7 @@ public class NewWarningsIncreasedByPercentageConditionIT extends ConditionIntegr
         List<Condition> conditions = new ArrayList<>();
         conditions.add(condition);
 
-        CodeSonarPublisher codeSonarPublisher = new CodeSonarPublisher(conditions, "http", VALID_HUB_ADDRESS.toString(), VALID_PROJECT_NAME, "", "2");
+        CodeSonarPublisher codeSonarPublisher = new CodeSonarPublisher(conditions, "http", VALID_HUB_ADDRESS.toString(), VALID_PROJECT_NAME, "", "", "2");
         codeSonarPublisher.setAnalysisService(mockedAnalysisService);
         codeSonarPublisher.setMetricsService(mockedMetricsService);
         codeSonarPublisher.setProceduresService(mockedProceduresService);
@@ -65,7 +65,7 @@ public class NewWarningsIncreasedByPercentageConditionIT extends ConditionIntegr
         conditions.add(condition);
 
         CodeSonarPublisher codeSonarPublisher = new CodeSonarPublisher(
-                conditions, "http", VALID_HUB_ADDRESS.toString(), VALID_PROJECT_NAME, "",
+                conditions, "http", VALID_HUB_ADDRESS.toString(), VALID_PROJECT_NAME, "", "",
                 this.VISIBILITY_FILTER
         );
         codeSonarPublisher.setAnalysisService(mockedAnalysisService);
