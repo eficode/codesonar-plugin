@@ -77,11 +77,11 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
 
     private String credentialId;
 
-    private String sslCertificateCredentialId;
+    private String serverCertificateCredentialId;
 
     @DataBoundConstructor
     public CodeSonarPublisher(
-            List<Condition> conditions, String protocol, String hubAddress, String projectName, String credentialId, String sslCertificateCredentialId,
+            List<Condition> conditions, String protocol, String hubAddress, String projectName, String credentialId, String serverCertificateCredentialId,
             String visibilityFilter
     ) {
         this.hubAddress = hubAddress;
@@ -94,7 +94,7 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
         this.conditions = conditions;
 
         this.credentialId = credentialId;
-        this.sslCertificateCredentialId = sslCertificateCredentialId;
+        this.serverCertificateCredentialId = serverCertificateCredentialId;
         this.visibilityFilter = visibilityFilter;
     }
 
@@ -392,12 +392,12 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
         this.credentialId = credentialId;
     }
 
-    public String getSslCertificateCredentialId() {
-        return sslCertificateCredentialId;
+    public String getServerCertificateCredentialId() {
+        return serverCertificateCredentialId;
     }
 
-    public void setSslCertificateCredentialId(String sslCertificateCredentialId) {
-        this.sslCertificateCredentialId = sslCertificateCredentialId;
+    public void setServerCertificateCredentialId(String serverCertificateCredentialId) {
+        this.serverCertificateCredentialId = serverCertificateCredentialId;
     }
 
     public XmlSerializationService getXmlSerializationService() {
@@ -409,10 +409,10 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
 
     public HttpService getHttpService(@Nonnull Run<?, ?> run) throws AbortException {
         X509Certificate cert = null;
-        if(getSslCertificateCredentialId() != null && !getSslCertificateCredentialId().isEmpty()) {
+        if(getServerCertificateCredentialId() != null && !getServerCertificateCredentialId().isEmpty()) {
             StandardCredentials credentials = CredentialsMatchers.firstOrNull(
                     CredentialsProvider.lookupCredentials(StandardCredentials.class, run.getParent(), ACL.SYSTEM,
-                            Collections.<DomainRequirement>emptyList()), CredentialsMatchers.withId(getSslCertificateCredentialId()));
+                            Collections.<DomainRequirement>emptyList()), CredentialsMatchers.withId(getServerCertificateCredentialId()));
 
             if (credentials instanceof StandardUsernamePasswordCredentials) {
                 LOGGER.log(Level.FINE, "[CodeSonar] Found StandardUsernamePasswordCredentials provided as Hub HTTPS certificate");
