@@ -286,7 +286,7 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
                     c.getPassword().getPlainText());
         }
         if (credentials instanceof StandardCertificateCredentials) {
-             LOGGER.log(Level.FINE, "a[CodeSonar] Authenticating using ssl certificate");
+             LOGGER.log(Level.FINE, "[CodeSonar] Authenticating using ssl certificate");
             if (protocol.equals("http")) {
                 throw new AbortException("[CodeSonar] Authentication using a certificate is only available while SSL is enabled.");
             }
@@ -414,14 +414,6 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
                     CredentialsProvider.lookupCredentials(StandardCredentials.class, run.getParent(), ACL.SYSTEM,
                             Collections.<DomainRequirement>emptyList()), CredentialsMatchers.withId(getServerCertificateCredentialId()));
 
-            if (credentials instanceof StandardUsernamePasswordCredentials) {
-                LOGGER.log(Level.FINE, "[CodeSonar] Found StandardUsernamePasswordCredentials provided as Hub HTTPS certificate");
-                throw  new AbortException(String.format("[CodeSonar] The Jenkins Credentials provided as Hub HTTPS certificate is of type StandardUsernamePasswordCredentials.%n[CodeSonar] Please provide a credential of type FileCredentials"));
-            }
-            if (credentials instanceof StandardCertificateCredentials) {
-                LOGGER.log(Level.FINE, "[CodeSonar] Found StandardCertificateCredentials provided as Hub HTTPS certificate");
-                throw  new AbortException(String.format("[CodeSonar] The Jenkins Credentials provided as Hub HTTPS certificate is of type StandardCertificateCredentials.%n[CodeSonar] Please provide a credential of type FileCredentials"));
-            }
             if(credentials instanceof FileCredentials) {
                 LOGGER.log(Level.FINE, "[CodeSonar] Found FileCredentials provided as Hub HTTPS certificate");
                 FileCredentials f = (FileCredentials) credentials;
@@ -432,6 +424,9 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
                     LOGGER.log(Level.FINE, "[CodeSonar] Found FileCredentials provided as Hub HTTPS certificate");
                     throw new AbortException(String.format("[CodeSonar] Failed to create X509Certificate from Secret File Credential. %n[CodeSonar] %s: %s%n[CodeSonar] Stack Trace: %s", e.getClass().getName(), e.getMessage(), Throwables.getStackTraceAsString(e)));
                 }
+            } else {
+                LOGGER.log(Level.FINE, "[CodeSonar] Found {0} provided as Hub HTTPS certificate", credentials.getClass().getName());
+                throw  new AbortException(String.format("[CodeSonar] The Jenkins Credentials provided as Hub HTTPS certificate is of type %s.%n[CodeSonar] Please provide a credential of type FileCredentials", credentials.getClass().getName()));
             }
         }
 

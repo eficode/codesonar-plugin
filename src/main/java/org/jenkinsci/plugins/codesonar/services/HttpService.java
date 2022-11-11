@@ -90,9 +90,6 @@ public class HttpService {
             reason = resp.getStatusLine().getReasonPhrase();
             body = EntityUtils.toString(resp.getEntity(), "UTF-8");
         } catch (Exception e) {
-            if(body != "") {
-                throw new AbortException(String.format("[CodeSonar] Error communicating with CodeSonar Hub.%n[CodeSonar] HTTP status code: %s - %s %n[CodeSonar] HTTP Body: %s", status, reason, body));
-            }
             throw new AbortException(String.format("[CodeSonar] Error on url: %s%n[CodeSonar] Message is: %s", url, e.getMessage()));
         }
         if (status != 200) {
@@ -101,11 +98,11 @@ public class HttpService {
         return body;
     }
     
-    public InputStream getContentFromUrlAsInputStream(URI uri) throws AbortException{
+    public InputStream getContentFromUrlAsInputStream(URI uri) throws AbortException {
         return getContentFromUrlAsInputStream(uri.toString());
     }
     
-    public InputStream getContentFromUrlAsInputStream(String url) throws AbortException{
+    public InputStream getContentFromUrlAsInputStream(String url) throws AbortException {
         InputStream is;
         if(!url.contains("response_try_plaintext")) {
             url = (url.contains("?")) ? url + "#response_try_plaintext=1" : url + "?response_try_plaintext=1";
@@ -123,9 +120,6 @@ public class HttpService {
             reason = resp.getStatusLine().getReasonPhrase();
             body = EntityUtils.toString(resp.getEntity(), "UTF-8");
         } catch (Exception e) {
-            if(body != "") {
-                throw new AbortException(String.format("[CodeSonar] Error communicating with CodeSonar Hub.%n[CodeSonar] HTTP status code: %s - %s %n[CodeSonar] HTTP Body: %s", status, reason, body));
-            }
             throw new AbortException(String.format("[CodeSonar] Error on url: %s%n[CodeSonar] Message is: %s", url, e.getMessage()));
         }
         if (status != 200) {
