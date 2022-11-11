@@ -7,10 +7,10 @@
         <relativePath />
     </parent>
 
-    <url>https://github.com/Praqma/codesonar-plugin</url>
+    <url>https://github.com/eficode/codesonar-plugin</url>
     <name>CodeSonar Plugin</name>
     <artifactId>codesonar</artifactId>
-    <version>3.0.1-SNAPSHOT</version>
+    <version>3.1.0</version>
     <packaging>hpi</packaging>
 
     <properties>
