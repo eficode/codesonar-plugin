@@ -66,7 +66,7 @@ public class AuthenticationService {
         }
 
         if(status == 301) { //HTTP 301 - MOVED PERMANENTLY
-            if(baseHubUri.getScheme() == "http") {
+            if(baseHubUri.getScheme().equalsIgnoreCase("http")) {
                 throw new AbortException(String.format("[CodeSonar] failed to authenticate. Possible reason could be the CodeSonar hub running on https, while protocol http was specified.%n[CodeSonar] HTTP status code: %s - %s %n[CodeSonar] HTTP Body: %s", status, reason, body));
             }
         }
@@ -103,7 +103,7 @@ public class AuthenticationService {
         }
 
         if(status == 301) { //HTTP 301 - MOVED PERMANENTLY
-            if(baseHubUri.getScheme() == "http") {
+            if(baseHubUri.getScheme().equalsIgnoreCase("http")) {
                 throw new AbortException(String.format("[CodeSonar] failed to authenticate. Possible reason could be the CodeSonar hub running on https, while protocol http was specified.%n[CodeSonar] HTTP status code: %s - %s %n[CodeSonar] HTTP Body: %s", status, reason, body));
             }
         }

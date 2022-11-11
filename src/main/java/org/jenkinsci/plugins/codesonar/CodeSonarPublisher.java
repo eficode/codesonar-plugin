@@ -77,11 +77,11 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
 
     private String credentialId;
 
-    private String serverCertificateCredentialId;
+    private String serverCertificateCredentialId = "";
 
     @DataBoundConstructor
     public CodeSonarPublisher(
-            List<Condition> conditions, String protocol, String hubAddress, String projectName, String credentialId, String serverCertificateCredentialId,
+            List<Condition> conditions, String protocol, String hubAddress, String projectName, String credentialId,
             String visibilityFilter
     ) {
         this.hubAddress = hubAddress;
@@ -94,7 +94,6 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
         this.conditions = conditions;
 
         this.credentialId = credentialId;
-        this.serverCertificateCredentialId = serverCertificateCredentialId;
         this.visibilityFilter = visibilityFilter;
     }
 
@@ -119,6 +118,15 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
 
     public int getSocketTimeoutMS() {
         return socketTimeoutMS;
+    }
+
+    public String getServerCertificateCredentialId() {
+        return serverCertificateCredentialId;
+    }
+
+    @DataBoundSetter
+    public void setServerCertificateCredentialId(String serverCertificateCredentialId) {
+        this.serverCertificateCredentialId = serverCertificateCredentialId;
     }
 
     public String getVisibilityFilter() {
@@ -390,14 +398,6 @@ public class CodeSonarPublisher extends Recorder implements SimpleBuildStep {
 
     public void setCredentialId(String credentialId) {
         this.credentialId = credentialId;
-    }
-
-    public String getServerCertificateCredentialId() {
-        return serverCertificateCredentialId;
-    }
-
-    public void setServerCertificateCredentialId(String serverCertificateCredentialId) {
-        this.serverCertificateCredentialId = serverCertificateCredentialId;
     }
 
     public XmlSerializationService getXmlSerializationService() {

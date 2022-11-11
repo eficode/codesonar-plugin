@@ -49,12 +49,13 @@ public class CodeSonarJobDslExtension extends ContextExtensionPoint {
         CodeSonarJobDslContext context = new CodeSonarJobDslContext();
         executeInContext(closure, context);
 
-        CodeSonarPublisher publisher = new CodeSonarPublisher(context.conditions, protocol, hubAddress, projectName, credentialId, sslCertificateCredentialId, visibilityFilter);
+        CodeSonarPublisher publisher = new CodeSonarPublisher(context.conditions, protocol, hubAddress, projectName, credentialId, visibilityFilter);
         publisher.setSocketTimeoutMS(socketTimeoutMS);
+        publisher.setServerCertificateCredentialId(sslCertificateCredentialId);
         return publisher;
     }
 
     public Object codesonar(String protocol, String hubAddress, String projectName, Runnable closure) {
-        return codesonar(protocol, -1, hubAddress, projectName, null, null,  "2", closure);
+        return codesonar(protocol, -1, hubAddress, projectName, null, "", "2", closure);
     }
 }
